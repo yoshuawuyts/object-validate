@@ -17,7 +17,7 @@ var validate = require('object-validate')
 
 var schema = validate({
   username: (val) => 'string' == typeof val,
-  age:      (val) => /(\n{1,2})/.test(val)
+  age:      (val) => /^(\d{1,2})$/.test(val)
 })
 
 schema({ username: 'tobi', age: 100 })
