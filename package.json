@@ -1,0 +1,31 @@
+{
+  "name": "object-validate",
+  "version": "1.0.0",
+  "description": "Validate an object based on a schema.",
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": "yoshuawuyts/object-validate",
+  "keywords": [
+    "object",
+    "validate",
+    "validation",
+    "simple",
+    "functional",
+    "function",
+    "schema"
+  ],
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "istanbul": "^0.3.5",
+    "make-lint": "^1.0.1",
+    "mocha": "^2.0.1"
+  },
+  "files": [
+    "LICENSE",
+    "index.js",
+    "README.md"
+  ]
+}
