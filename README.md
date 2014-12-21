@@ -13,9 +13,9 @@ $ npm install object-validate
 
 ## Usage
 ```js
-var validate = require('object-validate')
+const validate = require('object-validate')
 
-var schema = validate({
+const schema = validate({
   username: (val) => 'string' == typeof val,
   age:      (val) => /^(\d{1,2})$/.test(val)
 })
