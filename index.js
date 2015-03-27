@@ -4,7 +4,7 @@
 var assert = require('assert')
 var get = require('get-value')
 var set = require('set-value')
-var isObject = require('isobject');
+var isObject = require('is-plain-object');
 
 /**
  * Expose `validate`.
@@ -19,10 +19,10 @@ module.exports = validate
  * @api public
  */
 function validate(schema) {
-  assert.equal(isObject(schema), true, 'object-validate: schema should be an object')
+  assert.strictEqual(!isObject(schema), false, 'object-validate: schema should be an object')
 
   return function(data) {
-    assert.equal(isObject(schema), true, 'object-validate: data should be an object')
+    assert.strictEqual(!isObject(data), false, 'object-validate: data should be an object')
 
     var res = {}
 

@@ -2,8 +2,10 @@
  * Module dependencies.
  */
 
-var assert = require('assert');
-var validate = require('./');
+var assert = require('assert')
+var validate = require('./')
+
+assert.deepStrictEqual = require('is-equal-shallow')
 
 /**
  * Test.
@@ -14,7 +16,7 @@ describe('validate', function() {
     assert.throws(function _fixture() {
       validate('foo')
     }, /schema should be an object/)
-  });
+  })
 
   it('should return a function', function() {
     assert(typeof validate({}), 'function')
@@ -55,4 +57,4 @@ describe('validate', function() {
 
     assert.deepStrictEqual(res, { user: { name: true, age: false } })
   })
-});
+})
