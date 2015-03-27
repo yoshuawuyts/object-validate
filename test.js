@@ -43,4 +43,20 @@ describe('validate', function() {
 
     assert.deepEqual(res, { name: true, foo: false })
   })
+
+  it('should support nested schema define', function() {
+    var schema = validate({
+      'user.name': function(val) { return typeof val == 'string' },
+      'user.age': function(val) { return typeof val == 'number' },
+    })
+
+    var res = schema({
+      user: {
+        name: 'foo',
+        age: 'bar'
+      }
+    })
+
+    assert.deepEqual(res, { 'user.name': true, 'user.age': false })
+  })
 });
