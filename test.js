@@ -35,9 +35,54 @@ describe('validate', function() {
     })
 
     var res = schema({
-      name: 'derp',
-      age: 'darp'
+      name: 'foo',
+      age: 'bar'
     })
+
+    assert.deepStrictEqual(res, { name: true, age: false })
+  })
+
+  it('should validate objects when validator class given', function() {
+    function Validator() {}
+    Validator.prototype.name = function(val) { return typeof val === 'string' }
+    Validator.prototype.age = function(val) { return typeof val === 'number' }
+
+    var schema = validate(new Validator())
+
+    var res = schema({
+      name: 'foo',
+      age: 'bar'
+    })
+
+    assert.deepStrictEqual(res, { name: true, age: false })
+  })
+
+  it('should validate given class', function() {
+    function Klass() {}
+    Klass.prototype.name = 'foo'
+    Klass.prototype.age = 'bar'
+
+    var schema = validate({
+      name: function(val) { return typeof val === 'string' },
+      age: function(val) { return typeof val === 'number' },
+    })
+
+    var res = schema(new Klass())
+
+    assert.deepStrictEqual(res, { name: true, age: false })
+  })
+
+  it('should validate class with validator class', function() {
+    function Klass() {}
+    Klass.prototype.name = 'foo'
+    Klass.prototype.age = 'bar'
+
+    function Validator() {}
+    Validator.prototype.name = function(val) { return typeof val === 'string' }
+    Validator.prototype.age = function(val) { return typeof val === 'number' }
+
+    var schema = validate(new Validator())
+    var res = schema(new Klass())
 
     assert.deepStrictEqual(res, { name: true, age: false })
   })
