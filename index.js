@@ -2,6 +2,9 @@
  * Module dependencies
  */
 var assert = require('assert')
+var get = require('get-value')
+var set = require('set-value')
+var isObject = require('is-kindof').isObject;
 
 /**
  * Expose `validate`.
@@ -16,15 +19,15 @@ module.exports = validate
  * @api public
  */
 function validate(schema) {
-  assert.equal(typeof schema, 'object', 'object-validate: schema should be an object')
+  assert.strictEqual(!isObject(schema), false, 'object-validate: schema should be an object')
 
   return function(data) {
-    assert.equal(typeof data, 'object', 'object-validate: data should be an object')
+    assert.strictEqual(!isObject(data), false, 'object-validate: data should be an object')
 
     var res = {}
 
     Object.keys(schema).forEach(function(key) {
-      res[key] = schema[key](data[key])
+      set(res, key, schema[key](get(data, key)))
     })
 
     return res

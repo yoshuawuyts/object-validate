@@ -16,12 +16,26 @@ $ npm install object-validate
 const validate = require('object-validate')
 
 const schema = validate({
-  username: (val) => 'string' == typeof val,
+  username: (val) => typeof val === 'string',
   age:      (val) => /^(\d{1,2})$/.test(val)
 })
 
 schema({ username: 'tobi', age: 100 })
 // => { username: true, age: false }
+```
+
+Also you can use dot notation to test nested object schemas
+
+```js
+const validate = require('object-validate')
+
+const schema = validate({
+  'user.name': (val) => return typeof val === 'string',
+  'user.age': (val) => return typeof val === 'number',
+})
+
+schema({ user: { name: 'foo', age: 'bar' } })
+// => { user: { name: true, age: false } }
 ```
 
 ## Why?
