@@ -11,11 +11,9 @@ var validate = require('./');
 
 describe('validate', function() {
   it('should validate input (lol, how meta)', function() {
-    try {
+    assert.throws(function _fixture() {
       validate('foo')
-    } catch(e) {
-      assert.strictEqual(e.message, 'object-validate: schema should be an object')
-    }
+    }, /schema should be an object/)
   });
 
   it('should return a function', function() {
@@ -23,11 +21,9 @@ describe('validate', function() {
   })
 
   it('the returned function should validate input types', function() {
-    try {
-      validate({})('derp')
-    } catch(e) {
-      assert.strictEqual(e.message, 'object-validate: data should be an object')
-    }
+    assert.throws(function _fixture() {
+      validate({})('foo')
+    }, /data should be an object/)
   })
 
   it('should validate objects', function() {
