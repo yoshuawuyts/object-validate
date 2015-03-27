@@ -3,6 +3,7 @@
  */
 var assert = require('assert')
 var get = require('get-value')
+var set = require('set-value')
 var isObject = require('isobject');
 
 /**
@@ -26,7 +27,7 @@ function validate(schema) {
     var res = {}
 
     Object.keys(schema).forEach(function(key) {
-      res[key] = schema[key](get(data, key))
+      set(res, key, schema[key](get(data, key)))
     })
 
     return res

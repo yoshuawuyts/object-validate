@@ -14,7 +14,7 @@ describe('validate', function() {
     try {
       validate('foo')
     } catch(e) {
-      assert.equal(e.message, 'object-validate: schema should be an object')
+      assert.strictEqual(e.message, 'object-validate: schema should be an object')
     }
   });
 
@@ -26,28 +26,28 @@ describe('validate', function() {
     try {
       validate({})('derp')
     } catch(e) {
-      assert.equal(e.message, 'object-validate: data should be an object')
+      assert.strictEqual(e.message, 'object-validate: data should be an object')
     }
   })
 
   it('should validate objects', function() {
     var schema = validate({
-      name: function(val) { return typeof val == 'string' },
-      foo: function(val) { return typeof val == 'number' },
+      name: function(val) { return typeof val === 'string' },
+      age: function(val) { return typeof val === 'number' },
     })
 
     var res = schema({
       name: 'derp',
-      foo: 'darp'
+      age: 'darp'
     })
 
-    assert.deepEqual(res, { name: true, foo: false })
+    assert.deepStrictEqual(res, { name: true, age: false })
   })
 
-  it('should support nested schema define', function() {
+  it('should validate objects with dots defined schema like `user.name`', function() {
     var schema = validate({
-      'user.name': function(val) { return typeof val == 'string' },
-      'user.age': function(val) { return typeof val == 'number' },
+      'user.name': function(val) { return typeof val === 'string' },
+      'user.age': function(val) { return typeof val === 'number' },
     })
 
     var res = schema({
@@ -57,6 +57,6 @@ describe('validate', function() {
       }
     })
 
-    assert.deepEqual(res, { 'user.name': true, 'user.age': false })
+    assert.deepStrictEqual(res, { user: { name: true, age: false } })
   })
 });
