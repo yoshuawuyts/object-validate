@@ -4,7 +4,7 @@
 var assert = require('assert')
 var get = require('get-value')
 var set = require('set-value')
-var isObject = require('is-plain-object');
+var isObject = require('is-kindof').isObject;
 
 /**
  * Expose `validate`.
